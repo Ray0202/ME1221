@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>座位使用情况查询系统</title>
+    
+</head>
+<style>
+        .seat_row{
+            display: inline;
+        }
+
+        .account {
+            width: 400px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            box-shadow: 5px 5px 20px #aaa;
+
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            padding: 20px 40px;
+        }
+
+        .account h2 {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .seat_button{
+            display: block;
+            margin: 0 auto;
+        }
+
+        .seat_name{
+            font-size: large;
+            font-style: normal;
+            text-align: center;
+            
+        }
+
+        .font_middle{
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .seat_state{
+            margin: 0 auto;
+            font-size: large;
+        }
+
+        .seat_middle{
+            margin:20px auto;
+            display: block;
+            text-align: center;
+        }
+
+
+        
+</style>
+    <link rel="stylesheet" href="static\plugins\font-awesome-4.7.0\font-awesome-4.7.0\css\font-awesome.css">
+    <link rel="stylesheet" href="static\plugins\bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\css\bootstrap.css">
+    <script src="js/user.js"></script>
+    <script src="js/seat.js"></script>
+
+<body>
+    
+        <!-- <p>用户名：</p><input id="username" type="text" required>
+        <p>密码：</p><input id="password" type="password" required><button id="passwordVisible" type="button" onclick="passwordVisible()">显示密码</button>
+        <button id="register" type="button" onclick="myregister()">注册</button>
+        <button id="login" type="button" onclick="mylogin()">登录</button> -->
+        
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+  
+        <a class="navbar-brand" href="#">座位使用情况查询系统</a>
+        </div>
+
+        <button type="button" class="btn btn-default pull-right navbar-btn" data-toggle="modal" data-target="#myModal">登录</button>
+        
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- <div id="log">
+        <form  action="../control/logincheck.php" method="post">
+            <h3 >请登录</h3>
+            <div class="form-group">
+                <label for="username">用户名*</label>
+                <span id="user"  class="error"> </span>
+                <input type="text" class="form-control"  name="username"
+                       id="username" placeholder="用户名" onblur='checkName()' required />
+            </div>
+            <div class="form-group">
+                <label for="password">密码*</label>
+                <span id="psword" class="error"> </span>
+    
+                <input type="password" class="form-control"
+                       name="password"
+                       id="password" placeholder="密码" onblur='checkPassword()' required />
+    
+            </div>
+            <div class="checkbox">
+                <label>
+                    <span><input type="checkbox" value='true' style="width:15px;height:15px;" > 记住我</span>
+    
+                </label>
+            </div>
+            <input type="submit" class="btn btn-primary login-button" value="登录" style="width:70px;height:40px;" />
+            <p class="text-success"  ><a href="register.html">>>还没账号？去注册</a></p>
+    
+        </form>
+    
+        <div id="close" >
+            <span onclick="document.getElementById('log').style.display='none'">关闭</span>
+        </div>
+    
+    
+    
+    </div> -->
+    <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h2 class="modal-title" id="myModalLabel">登录</h2>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">用户名</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+                </div>
+        
+               
+            </form>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" value="登 录" class="btn btn-primary">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-4">欢迎使用座位使用情况查询系统！</h1>
+                <p class="lead">点击下方的刷新按钮以显示最新情况</p>
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-primary" onclick="loadSeat();" style="float: right;">
+                        刷新
+                    </button>
+           
+                </div>
+
+
+            <!-- <div class="list-group list-group-horizontal seat_row">
+                <li class="list-group-item list-group-item-success" id="0">座位1：<span id="00"></span><button type="button" onclick="bookSeat(1);">预约</button></li>
+                <li class="list-group-item list-group-item-success" id="1">座位2：<span id="11"></span><button type="button" onclick="bookSeat(2);">预约</button></li>
+            </div>
+            <div class="list-group list-group-horizontal seat_row">
+                <li class="list-group-item list-group-item-success" id="2">座位3：<span id="22"></span><button type="button" onclick="bookSeat(3);">预约</button></li>
+                <li class="list-group-item list-group-item-success" id="3">座位4：<span id="33"></span><button type="button" onclick="bookSeat(4);">预约</button></li>
+            </div> -->
+
+            </div>
+    </div>
+
+    <div class="container">
+        <div class=" col-sm-2">
+            <li class="list-group-item list-group-item-success "  id="0">
+                <div class="seat_name">座位1</div>
+                <div class="seat_middle">
+                    <i class="fa fa-book fa-lg  " aria-hidden="true" id="00">未预约</i>    
+                </div>
+                <button type="button" class="seat_button" onclick="bookSeat(1);">预约</button>
+            </li>
+        </div>
+        <div class=" col-sm-2">
+            <li class="list-group-item list-group-item-success "  id="1">
+                <div class="seat_name">座位2</div>
+                <div class="seat_middle">
+                    <i class="fa fa-book fa-lg  " aria-hidden="true" id="11">未预约</i>    
+                </div>
+                <button type="button" class="seat_button" onclick="bookSeat(2);">预约</button>
+            </li>
+        </div>
+        <div class=" col-sm-2">
+            <li class="list-group-item list-group-item-success "  id="2">
+                <div class="seat_name">座位3</div>
+                <div class="seat_middle">
+                    <i class="fa fa-book fa-lg  " aria-hidden="true" id="22">未预约</i>    
+                </div>
+                <button type="button" class="seat_button" onclick="bookSeat(3);">预约</button>
+            </li>
+        </div>
+        <div class=" col-sm-2">
+            <li class="list-group-item list-group-item-success "  id="3">
+                <div class="seat_name">座位4</div>
+                <div class="seat_middle">
+                    <i class="fa fa-book fa-lg  " aria-hidden="true" id="33">未预约</i>    
+                </div>
+                <button type="button" class="seat_button" onclick="bookSeat(4);">预约</button>
+            </li>
+        </div>
+        <div class=" col-sm-2">
+            <li class="list-group-item list-group-item-success "  id="4">
+                <div class="seat_name">座位5</div>
+                <div class="seat_middle">
+                    <i class="fa fa-book fa-lg  " aria-hidden="true" id="44">未预约</i>    
+                </div>
+                <button type="button" class="seat_button" onclick="bookSeat(5);">预约</button>
+            </li>
+        </div>
+        <div class=" col-sm-2">
+            <li class="list-group-item list-group-item-success "  id="5">
+                <div class="seat_name">座位6</div>
+                <div class="seat_middle">
+                    <i class="fa fa-book fa-lg  " aria-hidden="true" id="55">未预约</i>    
+                </div>
+                <button type="button" class="seat_button" onclick="bookSeat(6);">预约</button>
+            </li>
+        </div>
+
+        
+    </div>
+
+
+
+    <script src = "static\js\jquery-3.6.0.min.js"> </script>
+    <script src = "static\plugins\bootstrap-3.4.1-dist\bootstrap-3.4.1-dist\js\bootstrap.min.js"></script>
+</body>
+</html>
